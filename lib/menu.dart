@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'icons.dart';
+import 'utils.dart';
 
 class Menu extends StatefulWidget {
   const Menu({super.key});
@@ -30,14 +31,14 @@ class _MenuState extends State<Menu> {
       jsonData.add(e);
     }
     setState(() {});
-    print(jsonData);
-    print(data);
+    dPrint(jsonData);
+    dPrint(data);
   }
 
   @override
   Widget build(BuildContext context) {
     // double sWidth = MediaQuery.of(context).size.width;
-    // print(sWidth);
+    // dPrint(sWidth);
     return Material(
       // type: MaterialType.transparency,
       color: const Color(0xff275C9D),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'icons.dart';
+import 'utils.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -27,7 +28,7 @@ class _HomeBodyState extends State<HomeBody> {
       jsonData.add(e);
     }
     setState(() {});
-    print(jsonData);
+    dPrint(jsonData);
   }
 
   @override
@@ -36,16 +37,15 @@ class _HomeBodyState extends State<HomeBody> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        elevation: 10,
+        backgroundColor: Colors.white,
+        title: Row(
           children: [
-            Text('Hi {name}'),
-            Text(
-              'Welcome Back..',
-              style: TextStyle(fontSize: 28),
-              overflow: TextOverflow.ellipsis,
+            Text('Dashboard'),
+            SizedBox(
+              width: 10,
             ),
-            // Icon(Icons.waving_hand),
+            Icon(Icons.settings_suggest_outlined),
           ],
         ),
         actions: sWidth < 400
@@ -89,11 +89,6 @@ class _HomeBodyState extends State<HomeBody> {
                             data['icons'] ?? "",
                             color: const Color(0xffBDE2EE),
                           ),
-                          // children: <Widget>[
-                          //   CustomMaterialIcon(data['icons'] ?? ""),
-                          //   // Icon(Icons.home),
-                          //   Text(data['menu'] ?? ""),
-                          // ],
                         );
                       }).toList(),
               ),

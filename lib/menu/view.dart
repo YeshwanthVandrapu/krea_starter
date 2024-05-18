@@ -1,44 +1,63 @@
-// import 'package:flutter/cupertino.dart';
 import 'dart:convert';
+import 'package:erp_starter/utils.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart';
+import '../icons.dart';
+import 'modal.dart';
 
-import 'icons.dart';
-import 'menu2_modal.dart';
-import 'utils.dart';
-
-class Menu2 extends StatefulWidget {
-  const Menu2({super.key});
+class MenuView extends StatefulWidget {
+  const MenuView({super.key});
 
   @override
-  State<Menu2> createState() => _Menu2State();
+  State<MenuView> createState() => _MenuViewState();
 }
 
-class _Menu2State extends State<Menu2> {
+class _MenuViewState extends State<MenuView> {
   @override
   void initState() {
     super.initState();
     loadJsonAsset();
-  }
-
-  bool taped = false;
-  void colorChange() {
-    dPrint("tapped");
-    taped = !taped;
     setState(() {});
   }
 
-  final List<MenuModal> jsonData = [];
+  final List<RawMenuModal> rmenus = [];
+  List<MenuModal> menus = [];
 
   Future<void> loadJsonAsset() async {
-    final String jsonString = await rootBundle.loadString('res/json/menu.json');
+    final String jsonString =
+        await rootBundle.loadString('res/json/jsonformmatter.json');
     var data = jsonDecode(jsonString);
-    jsonData.clear();
+    rmenus.clear();
     for (var e in data) {
-      jsonData.add(MenuModal.fromJson(e));
+      rmenus.add(RawMenuModal.fromJson(e));
     }
-    setState(() {});
+    menus.clear();
+    menus.addAll(getMenu(0, rmenus));
+    for (var m in menus) {
+      dPrint(m.toJson());
+    }
+  }
+
+  List<MenuModal> getMenu(int pid, List<RawMenuModal> rmenus) {
+    List<MenuModal> menus = [];
+    List<RawMenuModal> rmenuss = [];
+    for (var rmenu in rmenus) {
+      if (pid != rmenu.parentId) {
+        rmenuss.add(rmenu);
+      }
+    }
+    for (var rmenu in rmenus) {
+      // rmenus.remove(rmenu);
+      if (pid == rmenu.parentId) {
+        menus.add(MenuModal(
+            resourceIcon: rmenu.resourceIcon,
+            resourceId: rmenu.resourceId,
+            resourceName: rmenu.resourceName,
+            children: getMenu(rmenu.resourceId, rmenuss)));
+      }
+    }
+
+    return menus;
   }
 
   @override
@@ -46,23 +65,21 @@ class _Menu2State extends State<Menu2> {
     return Material(
       color: const Color(0xff275C9D),
       child: ListView(
-        children: jsonData.isEmpty
+        children: menus.isEmpty
             ? [const CircularProgressIndicator()]
-            : jsonData.map(
+            : menus.map(
                 (data) {
                   return InkWell(
                     onTap: () {
                       var a = !data.isSelected;
                       if (a) {
-                        for (var d in jsonData) {
+                        for (var d in menus) {
                           d.isSelected = false;
                         }
                       }
                       data.isSelected = !data.isSelected;
                       setState(() {});
                     },
-
-                    // hoverColor: Colors.white,
                     child: Container(
                       color: data.isSelected ? Colors.white : null,
                       padding: const EdgeInsets.all(8.0),
@@ -71,7 +88,7 @@ class _Menu2State extends State<Menu2> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           CustomMaterialIcon(
-                            data.icons,
+                            data.resourceIcon,
                             color: const Color(0xffBDE2EE),
                           ),
                           const SizedBox(
@@ -79,7 +96,7 @@ class _Menu2State extends State<Menu2> {
                           ), // Add some spacing between the icon and the text
                           Center(
                             child: Text(
-                              data.menu,
+                              data.resourceIcon,
                               maxLines: 1,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,

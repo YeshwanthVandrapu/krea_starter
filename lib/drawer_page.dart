@@ -1,9 +1,9 @@
-// import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'icons.dart';
+import 'utils.dart';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
@@ -28,7 +28,7 @@ class _DrawerPageState extends State<DrawerPage> {
       jsonData.add(e);
     }
     setState(() {});
-    print(jsonData);
+    dPrint(jsonData);
   }
 
   @override

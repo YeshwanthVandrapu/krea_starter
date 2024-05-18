@@ -1,8 +1,10 @@
-import 'package:erp_starter/homeBody.dart';
+import 'package:erp_starter/menu/view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'drawer_page.dart';
+import 'home_body.dart';
 import 'menu2.dart';
 
 class Home extends StatefulWidget {
@@ -22,10 +24,10 @@ class _HomeState extends State<Home> {
           sWidth > 600
               ? Container(
                   constraints: const BoxConstraints(maxWidth: 80),
-                  child: const Menu2(),
+                  child: const MenuView(),
                 )
               : Container(),
-          // DrawerPage(),
+          // const DrawerPage(),
           const Expanded(
             flex: 5,
             child: HomeBody(),
