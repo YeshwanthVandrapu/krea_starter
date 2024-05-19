@@ -72,18 +72,16 @@ class _MenuViewState extends State<MenuView> {
                       final data = menus[index];
                       return InkWell(
                         onTap: () {
-                          setState(() {
-                            for (var d in menus) {
-                              d.isSelected = false;
-                            }
-                            data.isSelected = true;
-                            // data.clickIndex = index;
-                            cIndex = index;
-                          });
+                          for (var d in menus) {
+                            d.isSelected = false;
+                          }
+                          data.isSelected = true;
+                          // data.clickIndex = index;
+                          cIndex = data.resourceId;
+                          setState(() {});
                         },
                         child: Container(
-                          color:
-                              data.isSelected ? const Color(0xffBDE2EE) : null,
+                          color: data.isSelected ? Colors.white : null,
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +90,7 @@ class _MenuViewState extends State<MenuView> {
                               CustomMaterialIcon(
                                 data.resourceIcon,
                                 color: data.isSelected
-                                    ? const Color(0xff275C9D)
+                                    ? Colors.black
                                     : const Color(0xffBDE2EE),
                               ),
                               const SizedBox(
@@ -106,7 +104,7 @@ class _MenuViewState extends State<MenuView> {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: data.isSelected
-                                        ? const Color(0xff275C9D)
+                                        ? Colors.black
                                         : const Color(0xffBDE2EE),
                                     fontSize: 11,
                                   ),
@@ -126,45 +124,33 @@ class _MenuViewState extends State<MenuView> {
   }
 
   Widget childSideBar(int cIndex) {
-    if (cIndex == -1 || menus[cIndex].children.isEmpty) {
+    List<MenuModal> childrens = menus.where((e) {
+      if (e.resourceId == cIndex && e.children.isNotEmpty) {
+        return true;
+      }
+      return false;
+    }).toList();
+
+    if (cIndex == -1 || childrens.isEmpty) {
       return const SizedBox.shrink();
     }
-    return Container(
+
+    return SizedBox(
       width: 220,
-      color: const Color(0xff275C9D),
       child: ListView.builder(
-        itemCount: menus[cIndex].children.length,
+        itemCount: childrens.length,
         itemBuilder: (context, index) {
-          return ExpansionTile(
-            iconColor: const Color(0xffBDE2EE),
-            collapsedIconColor: const Color(0xffBDE2EE),
-            backgroundColor: const Color.fromARGB(255, 71, 128, 199),
-            // enableFeedback: true,
+          return ListTile(
             leading: CustomMaterialIcon(
-              menus[cIndex].children[index].resourceIcon,
+              childrens[index].resourceIcon,
               color: const Color(0xffBDE2EE),
             ),
             title: Text(
-              menus[cIndex].children[index].resourceName,
+              childrens[index].resourceName,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(color: Color(0xffBDE2EE), fontSize: 12),
             ),
-            children: menus[cIndex].children[index].children.map((data) {
-              return ListTile(
-                title: Text(
-                  data.resourceName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(color: Color(0xffBDE2EE), fontSize: 10),
-                ),
-                leading: CustomMaterialIcon(
-                  data.resourceIcon,
-                  color: const Color(0xffBDE2EE),
-                ),
-              );
-            }).toList(),
           );
         },
       ),

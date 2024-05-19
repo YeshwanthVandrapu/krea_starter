@@ -25,6 +25,7 @@ class MenuModal {
   int resourceId;
   String resourceName;
   bool isSelected = false;
+  int clickIndex = -1;
   List<MenuModal> children;
 
   MenuModal({

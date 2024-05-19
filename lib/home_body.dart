@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'homeWidgets/task_widget.dart';
+import 'homeWidgets/welcome_widget.dart';
 import 'icons.dart';
 import 'utils.dart';
 
@@ -39,7 +41,7 @@ class _HomeBodyState extends State<HomeBody> {
       appBar: AppBar(
         elevation: 10,
         backgroundColor: Colors.white,
-        title: Row(
+        title: const Row(
           children: [
             Text('Dashboard'),
             SizedBox(
@@ -94,6 +96,23 @@ class _HomeBodyState extends State<HomeBody> {
               ),
             )
           : null,
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              constraints: const BoxConstraints(maxHeight: 270, maxWidth: 770),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                color: const Color.fromARGB(255, 165, 186, 197),
+              ),
+              child: const WelcomeCard(),
+            ),
+          ),
+          const Expanded(child: TaskListCard()),
+          // const Expanded(child: Placeholder()),
+        ],
+      ),
     );
   }
 }
