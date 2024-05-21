@@ -99,15 +99,13 @@ class _HomeBodyState extends State<HomeBody> {
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Container(
-              constraints: const BoxConstraints(maxHeight: 270, maxWidth: 770),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: const Color.fromARGB(255, 165, 186, 197),
-              ),
-              child: const WelcomeCard(),
+          Container(
+            constraints: const BoxConstraints(maxHeight: 270, maxWidth: 770),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              color: const Color.fromARGB(255, 165, 186, 197),
             ),
+            child: const WelcomeCard(),
           ),
           const Expanded(child: TaskListCard()),
           // const Expanded(child: Placeholder()),

@@ -135,36 +135,50 @@ class _MenuViewState extends State<MenuView> {
       child: ListView.builder(
         itemCount: menus[cIndex].children.length,
         itemBuilder: (context, index) {
-          return ExpansionTile(
-            iconColor: const Color(0xffBDE2EE),
-            collapsedIconColor: const Color(0xffBDE2EE),
-            backgroundColor: const Color.fromARGB(255, 71, 128, 199),
-            // enableFeedback: true,
-            leading: CustomMaterialIcon(
-              menus[cIndex].children[index].resourceIcon,
-              color: const Color(0xffBDE2EE),
+          return InkWell(
+            onTap: () {
+              setState(() {
+                for (var d in menus) {
+                  d.isSelected = false;
+                }
+                menus[cIndex].children[index].isSelected = true;
+                // data.clickIndex = index;
+                cIndex = index;
+              });
+            },
+            child: ExpansionTile(
+              iconColor: const Color(0xffBDE2EE),
+              collapsedIconColor: const Color(0xffBDE2EE),
+              backgroundColor: const Color.fromARGB(255, 71, 128, 199),
+              // enableFeedback: true,
+              leading: CustomMaterialIcon(
+                menus[cIndex].children[index].resourceIcon,
+                color: menus[cIndex].children[index].isSelected
+                    ? const Color.fromARGB(255, 71, 128, 199)
+                    : const Color(0xffBDE2EE),
+              ),
+              title: Text(
+                menus[cIndex].children[index].resourceName,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Color(0xffBDE2EE), fontSize: 12),
+              ),
+              children: menus[cIndex].children[index].children.map((data) {
+                return ListTile(
+                  title: Text(
+                    data.resourceName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        const TextStyle(color: Color(0xffBDE2EE), fontSize: 10),
+                  ),
+                  leading: CustomMaterialIcon(
+                    data.resourceIcon,
+                    color: const Color(0xffBDE2EE),
+                  ),
+                );
+              }).toList(),
             ),
-            title: Text(
-              menus[cIndex].children[index].resourceName,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: Color(0xffBDE2EE), fontSize: 12),
-            ),
-            children: menus[cIndex].children[index].children.map((data) {
-              return ListTile(
-                title: Text(
-                  data.resourceName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(color: Color(0xffBDE2EE), fontSize: 10),
-                ),
-                leading: CustomMaterialIcon(
-                  data.resourceIcon,
-                  color: const Color(0xffBDE2EE),
-                ),
-              );
-            }).toList(),
           );
         },
       ),

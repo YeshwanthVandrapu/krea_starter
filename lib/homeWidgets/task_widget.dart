@@ -2,6 +2,7 @@
 
 import 'package:erp_starter/utils/to_do_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TaskListCard extends StatefulWidget {
   const TaskListCard({super.key});
@@ -34,6 +35,9 @@ class _TaskListCardState extends State<TaskListCard> {
   }
 
   void createNewTask() {
+    String a = "@gmail.com";
+    print(GetUtils.isPhoneNumber(a));
+    // .isValidMailId()
     showDialog(
       context: context,
       builder: (context) {
