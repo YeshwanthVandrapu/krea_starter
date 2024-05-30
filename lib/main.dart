@@ -1,3 +1,4 @@
+import 'package:erp_starter/home_schedule/controller.dart';
 import 'package:erp_starter/home_screen1.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,6 +8,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('mybox');
+  Get.put(ScheduleController());
   runApp(const MyApp());
 }
 

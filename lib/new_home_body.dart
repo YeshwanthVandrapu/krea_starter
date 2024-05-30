@@ -1,6 +1,7 @@
 import 'package:erp_starter/cardGrid.dart';
+import 'package:erp_starter/homeWidgets/quick_links.dart';
 import 'package:erp_starter/homeWidgets/welcome_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:erp_starter/home_schedule/view.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
@@ -115,10 +116,12 @@ class _NewHomeBodyState extends State<NewHomeBody> {
               divison: const Division(
                 colXL: 6,
                 colL: 10,
+                colXS: 10,
                 offsetXL: 1,
                 offsetL: 1,
                 offsetM: 1,
                 offsetS: 1,
+                offsetXS: 1,
               ),
               child: Column(
                 children: [
@@ -132,16 +135,16 @@ class _NewHomeBodyState extends State<NewHomeBody> {
                         const BoxConstraints(maxHeight: 300, minHeight: 270),
                     child: const WelcomeCard(),
                   ),
-                  const Cardgrid(),
-                  Container(
-                    margin: const EdgeInsets.only(top: 40, bottom: 40),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 189, 226, 238),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(width: 1, color: Colors.grey)),
-                    constraints: const BoxConstraints(maxHeight: 300),
-                    child: const TaskListCard(),
-                  ),
+                  // const Cardgrid(),
+                  // Container(
+                  //   margin: const EdgeInsets.only(top: 40, bottom: 40),
+                  //   decoration: BoxDecoration(
+                  //       color: const Color.fromARGB(255, 189, 226, 238),
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       border: Border.all(width: 1, color: Colors.grey)),
+                  //   constraints: const BoxConstraints(maxHeight: 300),
+                  //   child: const TaskListCard(),
+                  // ),
                 ],
               ),
             ),
@@ -149,73 +152,31 @@ class _NewHomeBodyState extends State<NewHomeBody> {
               divison: const Division(
                 colXL: 3,
                 colL: 10,
+                colXS: 10,
                 offsetXL: 1,
                 offsetL: 1,
                 offsetM: 1,
                 offsetS: 1,
+                offsetXS: 1,
               ),
               child: Column(
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 40, bottom: 40),
                     constraints:
-                        const BoxConstraints(maxHeight: 500, maxWidth: 500),
-                    child: const CalenderCard(),
+                        const BoxConstraints(maxHeight: 300, maxWidth: 500),
+                    child: const QuickLinks(),
                   ),
-                  Center(
-                    child: Card(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          const ListTile(
-                            leading: Icon(Icons.album),
-                            title: Text('The Enchanted Nightingale'),
-                            subtitle: Text(
-                                'Music by Julie Gable. Lyrics by Sidney Stein.'),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              const SizedBox(width: 8),
-                              TextButton(
-                                child: const Text('Join'),
-                                onPressed: () {/* ... */},
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Center(
-                    child: Card(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          const ListTile(
-                            leading: Icon(Icons.album),
-                            title: Text('The Enchanted Nightingale'),
-                            subtitle: Text(
-                                'Music by Julie Gable. Lyrics by Sidney Stein.'),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              const SizedBox(width: 8),
-                              TextButton(
-                                child: const Text('Join'),
-                                onPressed: () {/* ... */},
-                              ),
-                              const SizedBox(width: 8),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  // Container(
+                  //   margin: const EdgeInsets.only(top: 40, bottom: 40),
+                  //   constraints:
+                  //       const BoxConstraints(maxHeight: 500, maxWidth: 500),
+                  //   child: const CalenderCard(),
+                  // ),
+
+                  Container(
+                    // constraints: const BoxConstraints(maxHeight: 400),
+                    child: const UpcomingSchedule(),
                   )
                 ],
               ),
